@@ -112,10 +112,12 @@ function Login() {
 
  
   return (
+    
+   
+  <div className="login-page">
     <div className="login-card">
       <div className="login-form-container">
         <h1 className="login-title">Welcome to murf</h1>
-        
         <p className="login-subtitle">
           Login to the platform and stay up to date with 
           <br />the current trend of the world!
@@ -178,7 +180,8 @@ function Login() {
         </p>
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default Login
