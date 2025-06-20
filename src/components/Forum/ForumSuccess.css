@@ -84,10 +84,11 @@ body {
 .manage-button {
   background-color: #00c853;
   color: white;
+  padding: 8px;
+    border-radius: 30px;
   .celebration-icon {
     width: 100px;
     height: 100px; 
-        padding: 8px;
-          border-radius: 10px;
+        
   }
 }

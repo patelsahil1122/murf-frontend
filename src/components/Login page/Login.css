@@ -1,30 +1,37 @@
-.login-container {
-  min-height: 100vh;
-  width: 100%;
+.login-page {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
-  background-color: white;
-  padding-right: 10rem; /* Adds space from the right edge */
+  height: 100vh;
+  width: 100vw;
+  background-color: #f9fafb;
+  padding: 1rem;
 }
 
 .login-card {
   width: 100%;
-  max-width: 28rem;
-  padding: 1.5rem;
+  max-width: 31rem;
+  height: 100%;
+  max-height: 40rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  
 }
 
 .login-form-container {
   background-color: white;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-    
+  border-radius: 2.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10);
+  padding: 3rem;
+  height: 100%;
+    min-height: 500px;
+  
 }
 
+/* Title and subtitle */
 .login-title {
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #1f2937;
   text-align: center;
   margin-bottom: 1rem;
@@ -33,59 +40,69 @@
 .login-subtitle {
   color: #6b7280;
   text-align: center;
-  margin-bottom: 3rem;
+margin-bottom: 5rem;
+  margin-top: 0rem;
 }
 
+/* Input styling */
 .form-group {
-  position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-label {
-  color: #4b5563;
   font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .form-input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  background-color: #f1f5f9;
   border: none;
-  border-bottom: 1px solid #d1d5db;
-  background-color: transparent;
+  border-radius: 0.5rem;
   color: #111827;
 }
 
 .form-input:focus {
   outline: none;
-  border-bottom-color: #6b7280;
+  background-color: #e0f2fe;
 }
 
-.error-message {
-  position: absolute;
-  bottom: -1.5rem;
-  left: 0;
+/* Error */
+.input-error {
   color: #ef4444;
   font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
 }
 
+.error-input {
+  border: 1px solid #ef4444;
+}
+
+/* Button */
 .login-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #d1d5db;
-  color: #374151;
+  background-color: #9ca3af;
+  color: #fff;
+  font-weight: 600;
   border-radius: 0.5rem;
-  font-weight: 500;
-  margin-top: 3rem;
+  margin-top: 1rem;
   transition: background-color 0.2s;
+  border: none;
 }
 
 .login-button:hover {
-  background-color: #9ca3af;
+  background-color: #6b7280;
 }
 
+/* Signup link */
 .signup-text {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   color: #6b7280;
 }
 
@@ -93,4 +110,14 @@
   color: #1f2937;
   font-weight: 500;
   text-decoration: none;
+}
+
+/* General error */
+.general-error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
 }

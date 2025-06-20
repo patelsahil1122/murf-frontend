@@ -26,7 +26,7 @@ const ForumSuccess = ({ forumName }) => {
         </p>
 
         <button
-          onClick={() => navigate('/manage-forum')}
+          onClick={() => navigate('/list-forum')}
           className="manage-button"
         >
           Manage your forum

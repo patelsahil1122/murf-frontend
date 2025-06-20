@@ -92,10 +92,10 @@ function Signup() {
   }
 
   return (
+      <div className="signup-wrapper">
     <div className="signup-card">
       <div className="signup-form-container">
         <h1 className="signup-title">Welcome to murf</h1>
-        
         <p className="signup-subtitle">
           Sign up into the platform and write some exciting posts to attract users
         </p>
@@ -171,6 +171,7 @@ function Signup() {
           </NavLink>
         </p>
       </div>
+    </div>
     </div>
   )
 }
