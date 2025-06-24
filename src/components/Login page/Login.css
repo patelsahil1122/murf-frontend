@@ -28,7 +28,7 @@
   
 }
 
-/* Title and subtitle */
+
 .login-title {
   font-size: 2.25rem;
   font-weight: 600;
@@ -44,7 +44,7 @@ margin-bottom: 5rem;
   margin-top: 0rem;
 }
 
-/* Input styling */
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -70,7 +70,7 @@ margin-bottom: 5rem;
   background-color: #e0f2fe;
 }
 
-/* Error */
+
 .input-error {
   color: #ef4444;
   font-size: 0.875rem;
@@ -82,7 +82,7 @@ margin-bottom: 5rem;
   border: 1px solid #ef4444;
 }
 
-/* Button */
+
 .login-button {
   width: 100%;
   padding: 0.75rem;
