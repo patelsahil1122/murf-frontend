@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ListForum.css';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 const ListForum = () => {
   const [forums, setForums] = useState([]);
@@ -14,7 +15,7 @@ const ListForum = () => {
           {
             headers: {
               authToken: userData.token,
-            },
+            },  
           }
         );
 
@@ -40,36 +41,52 @@ const ListForum = () => {
         <div className="user-icon">{getFirstLetter(userData.name)}</div>
       </header>
 
-      <h2 className="forum-title">Forums</h2>
-
-      <div className="forum-list">
-        {Array.isArray(forums) && forums.length > 0 ? (
-          forums.map((forum, index) => (
-            <div className="forum-card" key={index}>
-              <div className="forum-left">
-                <h3>{forum.forum_name}</h3>
-                <p className="created-by">
-                  Created by <strong>{forum.createdBy?.name || userData.name}</strong>
-                </p>
-              </div>
-
-              <div className="forum-right">
-                <p className="theme-text">{forum.theme}</p>
-                <div className="user-icon-box">
-                  <div className="user-initial-circle">
-                    {getFirstLetter(forum.createdBy?.name || userData.name)}
-                  </div>
-                  <span className="user-fullname">
-                    {forum.createdBy?.name || userData.name}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="no-forum-msg">No forums found.</p>
-        )}
+      <div className="forum-title">
+        <h1>Forums</h1>
+      <NavLink 
+            to="/create-forum" 
+            className="createforum-link"
+            // onClick={handleSignupClick}
+          >
+            CreateForum
+          </NavLink>
       </div>
+      
+      <div className="forum-list">
+      {Array.isArray(forums) && forums.length > 0 ? (
+       forums.map((forum, index) => (
+      <NavLink
+        key={index}
+        to={`/forum/${forum._id}/posts`}
+        className="forum-card-link" // Optional: style to remove underline etc.
+      >
+      
+        <div className="forum-card">
+          <div className="forum-left">
+            <h3>{forum.forum_name}</h3>
+            <p className="created-by">
+              Created by <strong>{forum.createdBy?.name || userData.name}</strong>
+            </p>
+          </div>
+
+          <div className="forum-right">
+            <p className="theme-text">{forum.theme}</p>
+            <div className="user-icon-box">
+              <div className="user-initial-circle">
+                {getFirstLetter(forum.createdBy?.name || userData.name)}
+              </div>
+              <span className="user-fullname">
+                {forum.createdBy?.name || userData.name}
+              </span>
+            </div>
+          </div>
+        </div>
+      </NavLink>
+    ))
+  ) : (
+    <p className="no-forum-msg">No forums found.</p>
+  )}
+</div>
     </div>
   );
 };
