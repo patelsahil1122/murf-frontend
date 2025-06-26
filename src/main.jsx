@@ -8,6 +8,7 @@ import Layout from './Layout.jsx'
 import CreateForum from './components/Forum/CreateForum.jsx'
 import ListForum from './components/Forum/ListForum.jsx'
 import ForumPage from './components/Forum/ForumPage.jsx'
+import MembersPage from './components/Post/MembersContent.jsx'
 
 // Define isLoggedIn state
 const App = () => {
@@ -20,7 +21,8 @@ const App = () => {
         <Route path="signup" element={<Signup />} />
         <Route path="create-forum" element={ <CreateForum />} />
         <Route path="list-forum" element={ <ListForum />} />
-        <Route path="forum/:forumId/posts" element={<ForumPage />} />
+        <Route path="/forum/:forumId/:section" element={<ForumPage />} />
+        
         
       </Route>
     )

@@ -1,0 +1,27 @@
+.news-page {
+    position: relative;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff0e6;
+    padding: 120px 200px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    z-index: 1;
+    margin: auto;
+}
+
+.news-page::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background-color: #ffe1cc;
+    border-radius: 50%;
+    z-index: -1;
+}
