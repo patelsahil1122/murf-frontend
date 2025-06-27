@@ -53,18 +53,21 @@ body {
 }
 
 .createforum-link {
-    background-color: green;
-    padding: 5px;
+    background-color: #9ca3af;
+    padding: 1px;
     color: white;
     border-radius: 10px;
 }
  
+.createforum-link:hover {
+    background-color: #6b7280;
+}
 
 /* Cards */
 .forum-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .forum-card {
@@ -75,7 +78,7 @@ body {
     padding: 18px 25px;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    margin: 20px;
+        margin: 14px 28px;
 }
 
 .forum-left h3 {
