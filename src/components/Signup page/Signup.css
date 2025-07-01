@@ -92,17 +92,12 @@
 .signup-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #d1d5db;
-  color: #374151;
   border-radius: 0.5rem;
   font-weight: 500;
   margin-top: 3rem;
   transition: background-color 0.2s;
 }
 
-.signup-button:hover {
-  background-color: #9ca3af;
-}
 
 .login-text {
   text-align: center;
@@ -110,8 +105,3 @@
   color: #6b7280;
 }
 
-.login-link {
-  color: #1f2937;
-  font-weight: 500;
-  text-decoration: none;
-}

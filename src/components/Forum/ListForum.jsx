@@ -58,7 +58,7 @@ const ListForum = () => {
       <NavLink
         key={index}
         to={`/forum/${forum._id}/posts`}
-        className="forum-card-link" // Optional: style to remove underline etc.
+        className="forum-card-link" 
       >
       
         <div className="forum-card">

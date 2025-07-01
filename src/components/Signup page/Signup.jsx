@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import './Signup.css'
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './Signup.css';
+import ReusableButton from '../ReusableComponents/ReusableButton';
+import ReusableNavLink from '../ReusableComponents/ReusableNavLink';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -155,20 +157,22 @@ function Signup() {
             )}
           </div>
 
-          <button 
-            type="submit" 
-            className="signup-button" 
-            onClick={signupUser} 
-            disabled={loading}>
-            {loading ? 'Signing up...' : 'Sign up'}
-          </button>
+         <ReusableButton
+          type="submit"
+          onClick={signupUser}
+          className="signup-button"
+          disabled={loading}
+          text={loading ? 'Signing up...' : 'Sign up'}
+        />
         </form>
 
         <p className="login-text">
           Already have an account?{' '}
-          <NavLink to="/" className="login-link">
-            Login
-          </NavLink>
+          <ReusableNavLink 
+          to="/" 
+          className="login-link" 
+          label="Login" 
+          />
         </p>
       </div>
     </div>
