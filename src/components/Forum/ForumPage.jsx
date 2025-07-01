@@ -1,4 +1,3 @@
-// ForumPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -14,6 +13,11 @@ const ForumPage = () => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
   const [forum, setForum] = useState(null);
+
+  // Temporary channel state
+  const [channels, setChannels] = useState(['General', 'Announcements', 'News']);
+  const [showChannelModal, setShowChannelModal] = useState(false);
+  const [channelName, setChannelName] = useState('');
 
   const activeSection = section?.toLowerCase();
 
@@ -38,7 +42,14 @@ const ForumPage = () => {
 
   if (!forum) return <div>Loading...</div>;
 
-  const isChannelSection = ['general', 'announcements', 'news'].includes(activeSection);
+  const isChannelSection = channels.map(ch => ch.toLowerCase()).includes(activeSection);
+
+  const handleAddChannel = () => {
+    if (!channelName.trim()) return;
+    setChannels(prev => [...prev, channelName.trim()]);
+    setChannelName('');
+    setShowChannelModal(false);
+  };
 
   return (
     <div className="forumpage-wrapper">
@@ -73,27 +84,24 @@ const ForumPage = () => {
 
           {activeSection !== 'members' && activeSection !== 'settings' && (
             <>
-              <div className="channel-title">Channels</div>
+              <div className="channel-title">Channels
+                <button className="add-channel-btn" onClick={() => setShowChannelModal(true)}>
+                addChannel
+              </button>
+              </div>
+               
               <ul className="channels">
-                <li
-                  className={activeSection === 'general' ? 'active' : ''}
-                  onClick={() => navigate(`/forum/${forumId}/general`)}
-                >
-                  General
-                </li>
-                <li
-                  className={activeSection === 'announcements' ? 'active' : ''}
-                  onClick={() => navigate(`/forum/${forumId}/announcements`)}
-                >
-                  Announcements
-                </li>
-                <li
-                  className={activeSection === 'news' ? 'active' : ''}
-                  onClick={() => navigate(`/forum/${forumId}/news`)}
-                >
-                  News
-                </li>
+                {channels.map((ch) => (
+                  <li
+                    key={ch}
+                    className={activeSection === ch.toLowerCase() ? 'active' : ''}
+                    onClick={() => navigate(`/forum/${forumId}/${ch.toLowerCase()}`)}
+                  >
+                    {ch}
+                  </li>
+                ))}
               </ul>
+              
             </>
           )}
         </div>
@@ -104,8 +112,31 @@ const ForumPage = () => {
           {activeSection === 'general' && <GeneralContent />}
           {activeSection === 'announcements' && <AnnouncementsContent />}
           {activeSection === 'news' && <NewsContent />}
+          {!['members', 'settings', 'general', 'announcements', 'news'].includes(activeSection) && (
+            <div style={{ padding: '2rem' }}>No content for this channel yet.</div>
+          )}
         </div>
       </div>
+
+      {/* Channel Modal */}
+      {showChannelModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <button className="close-btn" onClick={() => setShowChannelModal(false)}>×</button>
+            <h3>Enter name of the channel you want to Add</h3>
+            <input
+              type="text"
+              placeholder="Channel Name"
+              value={channelName}
+              onChange={(e) => setChannelName(e.target.value)}
+            />
+            <div className="modal-actions">
+              <button onClick={() => setShowChannelModal(false)} className='cancel-btn '>Cancel</button>
+              <button onClick={handleAddChannel} className='add-btn'>Add Channel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

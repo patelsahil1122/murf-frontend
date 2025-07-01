@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import './CreateForum.css'
 import ForumSuccess from './ForumSuccess'
+import ReusableButton from '../ReusableComponents/ReusableButton'
+import ReusableNavLink from '../ReusableComponents/ReusableNavLink'
 
 const CreateForum = () => {
   const [step, setStep] = useState(1)
@@ -77,13 +79,12 @@ const CreateForum = () => {
                 className="forum-input"
               />
               {step === 1 && (
-                <button
+                <ReusableButton
                   onClick={handleNext}
                   disabled={!forumName}
                   className={`next-button ${forumName ? 'filled' : ''}`}
-                >
-                  Next
-                </button>
+                  text="Next"
+                />
               )}
             </div>
           </div>
@@ -127,12 +128,11 @@ const CreateForum = () => {
                 <div style={{height: '100px'}} />
               )}
               {error && <div className="error-message">{error}</div>}
-              <button
-                onClick={handleCreateForum}
-                className="create-button"
-              >
-                Create Forum
-              </button>
+              <ReusableButton
+               onClick={handleCreateForum}
+               className="create-button"
+               text="Create Forum"
+              />
             </div>
           </div>
         </div>

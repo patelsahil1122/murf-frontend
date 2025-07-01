@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
-
-
+import ReusableButton from '../ReusableComponents/ReusableButton';
+import ReusableNavLink from '../ReusableComponents/ReusableNavLink';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -158,25 +158,23 @@ function Login() {
             {errors.password && <span className="input-error">{errors.password}</span>}
           </div>
 
-          <button 
-            type="submit" 
-            className="login-button"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <ReusableButton
+           type="submit"
+           onClick={handleSubmit}
+           className="login-button"
+           disabled={loading}
+           text={loading ? 'Logging in...' : 'Login'}
+            />
         </form>
 
         <p className="signup-text">
           Do not have an account?{' '}
-          <NavLink 
-            to="/signup" 
-            className="signup-link"
-            onClick={handleSignupClick}
-          >
-            Sign Up
-          </NavLink>
+          <ReusableNavLink
+             to="/signup"
+             className="signup-link"
+             label="Sign Up"
+             onClick={handleSignupClick}
+          />
         </p>
       </div>
     </div>
