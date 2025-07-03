@@ -1,61 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css';
 import ReusableButton from '../ReusableComponents/ReusableButton';
 import ReusableNavLink from '../ReusableComponents/ReusableNavLink';
+import ReusableFormCard from '../ReusableComponents/ReusableFormCard';
+import ReusableInput from '../ReusableComponents/ReusableInput';
 
 function Signup() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: ''
-  })
-  const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    password: ''
-  })
-  const [loading, setLoading] = useState(false)
-  const [shouldSignup, setShouldSignup] = useState(false)
-  const navigate = useNavigate()
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [errors, setErrors] = useState({ name: '', email: '', password: '', general: '' });
+  const [loading, setLoading] = useState(false);
+  const [shouldSignup, setShouldSignup] = useState(false);
+  const navigate = useNavigate();
 
-  // Update the useEffect hook with signup logic
-  
+  useEffect(() => {
     const signupUser = async () => {
       if (!shouldSignup) return;
-
       try {
         setLoading(true);
         const response = await axios.post('http://localhost:5000/sign-up', {
           user_name: formData.name,
           user_email: formData.email,
           password: formData.password
-        }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
         });
 
-        console.log('Signup successful:', response.data);
-
         if (response.data) {
-          
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userData', JSON.stringify({
             name: formData.name,
             email: formData.email,
-            signupDate: new Date().toISOString()
+            signupDate: new Date().toISOString(),
           }));
-
-          
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-          
-          // Navigate to create-forum page after succexssful signup
           navigate('/', { replace: true });
         }
       } catch (error) {
-        console.error('Signup failed:', error?.response?.data || error.message);
         setErrors({
           ...errors,
           general: error.response?.data?.message || 'Signup failed. Please try again.'
@@ -66,119 +45,85 @@ function Signup() {
       }
     };
 
-  
+    signupUser();
+  }, [shouldSignup]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const newErrors = {}
-
-    // Validation
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required'
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required'
-    }
-    if (!formData.password) {
-      newErrors.password = 'Password is required'
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters long'
-    }
-
-    setErrors(newErrors)
-
-    // If there are no errors, proceed with signup
-    if (Object.keys(newErrors).length === 0) {
-      setShouldSignup(true)
-    }
-  }
+    e.preventDefault();
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) setShouldSignup(true);
+  };
 
   return (
-      <div className="signup-wrapper">
-    <div className="signup-card">
-      <div className="signup-form-container">
-        <h1 className="signup-title">Welcome to murf</h1>
-        <p className="signup-subtitle">
-          Sign up into the platform and write some exciting posts to attract users
-        </p>
+    <div className="signup-wrapper">
+      <div className="signup-card">
+        <div className="signup-form-container">
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label">Name</label>
-            <input
-              type="text"
-              className={`form-input ${errors.name ? 'error-input' : ''}`}
+        <ReusableFormCard
+          title="Welcome to murf"
+          subtitle="Sign up into the platform and write some exciting posts to attract users"
+          titleClass="signup-title"
+          subtitleClass="signup-subtitle"
+        >
+          <form onSubmit={handleSubmit}>
+            {errors.general && <div className="general-error">{errors.general}</div>}
+
+            <ReusableInput
+              label="Name"
+              name="name"
               value={formData.name}
-              onChange={(e) => {
-                setFormData({ ...formData, name: e.target.value })
-                if (errors.name) setErrors({ ...errors, name: '' })
-              }}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              error={errors.name}
+              className="form-input"
             />
-            {errors.name && (
-              <span className="input-error" role="alert">
-                {errors.name}
-              </span>
-            )}
-          </div>
 
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
+            <ReusableInput
+              label="Email"
               type="email"
-              className={`form-input ${errors.email ? 'error-input' : ''}`}
+              name="email"
               value={formData.email}
-              onChange={(e) => {
-                setFormData({ ...formData, email: e.target.value })
-                if (errors.email) setErrors({ ...errors, email: '' })
-              }}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              error={errors.email}
+              className="form-input"
             />
-            {errors.email && (
-              <span className="input-error" role="alert">
-                {errors.email}
-              </span>
-            )}
-          </div>
 
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
+            <ReusableInput
+              label="Password"
               type="password"
-              className={`form-input ${errors.password ? 'error-input' : ''}`}
+              name="password"
               value={formData.password}
-              onChange={(e) => {
-                setFormData({ ...formData, password: e.target.value })
-                if (errors.password) setErrors({ ...errors, password: '' })
-              }}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              error={errors.password}
+              className="form-input"
             />
-            {errors.password && (
-              <span className="input-error" role="alert">
-                {errors.password}
-              </span>
-            )}
-          </div>
 
-         <ReusableButton
-          type="submit"
-          onClick={signupUser}
-          className="signup-button"
-          disabled={loading}
-          text={loading ? 'Signing up...' : 'Sign up'}
-        />
-        </form>
+            <ReusableButton
+              type="submit"
+              onClick={() => {}}
+              className="signup-button"
+              disabled={loading}
+              text={loading ? 'Signing up...' : 'Sign up'}
+            />
+          </form>
 
-        <p className="login-text">
-          Already have an account?{' '}
-          <ReusableNavLink 
-          to="/" 
-          className="login-link" 
-          label="Login" 
-          />
-        </p>
+          <p className="login-text">
+            Already have an account?{' '}
+            <ReusableNavLink
+              to="/"
+              className="login-link"
+              label="Login"
+            />
+          </p>
+        </ReusableFormCard>
+        </div>
       </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default Signup
-
+export default Signup;

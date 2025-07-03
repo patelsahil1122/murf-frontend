@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ListForum.css';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import ReusableNavLink from '../ReusableComponents/ReusableNavLink';
 
 const ListForum = () => {
   const [forums, setForums] = useState([]);
@@ -36,20 +37,19 @@ const ListForum = () => {
 
   return (
     <div className="listforum-container">
-      {/* Top Right User Initial */}
       <header className="listforum-header">
         <div className="user-icon">{getFirstLetter(userData.name)}</div>
       </header>
 
       <div className="forum-title">
         <h1>Forums</h1>
-      <NavLink 
+      <ReusableNavLink 
             to="/create-forum" 
             className="createforum-link"
+            label="CreateForum"
             // onClick={handleSignupClick}
-          >
-            CreateForum
-          </NavLink>
+          />
+        
       </div>
       
       <div className="forum-list">

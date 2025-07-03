@@ -7,14 +7,15 @@ import GeneralContent from '../Post/GeneralContent';
 import AnnouncementsContent from '../Post/AnnouncementsContent';
 import NewsContent from '../Post/NewsContent';
 import './ForumPage.css';
+import ReusableButton from '../ReusableComponents/ReusableButton';
+import ReusableInput from '../ReusableComponents/ReusableInput';
+import ReusableFormCard from '../ReusableComponents/ReusableFormCard';
 
 const ForumPage = () => {
   const { forumId, section } = useParams();
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
   const [forum, setForum] = useState(null);
-
-  // Temporary channel state
   const [channels, setChannels] = useState(['General', 'Announcements', 'News']);
   const [showChannelModal, setShowChannelModal] = useState(false);
   const [channelName, setChannelName] = useState('');
@@ -84,12 +85,14 @@ const ForumPage = () => {
 
           {activeSection !== 'members' && activeSection !== 'settings' && (
             <>
-              <div className="channel-title">Channels
-                <button className="add-channel-btn" onClick={() => setShowChannelModal(true)}>
-                addChannel
-              </button>
+              <div className="channel-title">
+                Channels
+                <ReusableButton 
+                  className="add-channel-btn" 
+                  onClick={() => setShowChannelModal(true)}
+                  text={'addChannel'}
+                />
               </div>
-               
               <ul className="channels">
                 {channels.map((ch) => (
                   <li
@@ -101,7 +104,6 @@ const ForumPage = () => {
                   </li>
                 ))}
               </ul>
-              
             </>
           )}
         </div>
@@ -118,22 +120,26 @@ const ForumPage = () => {
         </div>
       </div>
 
-      {/* Channel Modal */}
       {showChannelModal && (
         <div className="modal-overlay">
           <div className="modal">
             <button className="close-btn" onClick={() => setShowChannelModal(false)}>×</button>
-            <h3>Enter name of the channel you want to Add</h3>
-            <input
-              type="text"
-              placeholder="Channel Name"
-              value={channelName}
-              onChange={(e) => setChannelName(e.target.value)}
-            />
-            <div className="modal-actions">
-              <button onClick={() => setShowChannelModal(false)} className='cancel-btn '>Cancel</button>
-              <button onClick={handleAddChannel} className='add-btn'>Add Channel</button>
-            </div>
+            <ReusableFormCard
+              title="Enter name of the channel you want to Add"
+              titleClass="modal-title"
+            >
+              <ReusableInput
+                type="text"
+                placeholder="Channel Name"
+                value={channelName}
+                onChange={(e) => setChannelName(e.target.value)}
+                className="modal-input"
+              />
+              <div className="modal-actions">
+                <ReusableButton onClick={() => setShowChannelModal(false)} className="cancel-btn" text="Cancel" />
+                <ReusableButton onClick={handleAddChannel} className="add-btn" text="Add Channel" />
+              </div>
+            </ReusableFormCard>
           </div>
         </div>
       )}

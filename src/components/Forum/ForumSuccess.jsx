@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ForumSuccess.css'
+import ReusableButton from '../ReusableComponents/ReusableButton';
 
 const ForumSuccess = ({ forumName }) => {
   const navigate = useNavigate()
@@ -11,7 +12,7 @@ const ForumSuccess = ({ forumName }) => {
       <div className="success-card">
         <div className="balloon-icon">
           <img
-            src="/balloon-icon.png" // Update this path to your actual image location
+            src="/balloon-icon.png" 
             alt="Celebration Balloon"
             className="celebration-icon"
           />
@@ -25,12 +26,12 @@ const ForumSuccess = ({ forumName }) => {
           on {currentDate}. Go ahead and create your first post in the forum
         </p>
 
-        <button
-          onClick={() => navigate('/list-forum')}
-          className="manage-button"
-        >
-          Manage your forum
-        </button>
+        <ReusableButton
+            onClick={() => navigate('/list-forum')}
+            className="manage-button"
+            text="Manage your forum"
+          />
+        
       </div>
     </div>
   )
