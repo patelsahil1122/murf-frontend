@@ -53,15 +53,11 @@ body {
 }
 
 .createforum-link {
-    background-color: #9ca3af;
     padding: 1px;
-    color: white;
     border-radius: 10px;
 }
  
-.createforum-link:hover {
-    background-color: #6b7280;
-}
+
 
 /* Cards */
 .forum-list {
